@@ -6,17 +6,22 @@
 
 package diceGame;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author evrob0095
  */
 public class diceGame extends javax.swing.JFrame {
-
-    /**
-     * Creates new form diceGame
-     */
+    //Global Variables
+    int numberRolls = 0;
+    int correctGuesses = 0;
+    int incorrectGuesses = 0;
+    double percCorrectGuesses = 0;
+    
+        
     public diceGame() {
-        initComponents();
+        initComponents(); 
     }
 
     /**
@@ -40,7 +45,6 @@ public class diceGame extends javax.swing.JFrame {
         instructionsLabel4 = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
         diceComboBox = new javax.swing.JComboBox();
-        luckyButton = new javax.swing.JButton();
         percentCorrectGuessesLabel = new javax.swing.JLabel();
         numberRollsLabel = new javax.swing.JLabel();
         correctGuessesLabel = new javax.swing.JLabel();
@@ -117,15 +121,6 @@ public class diceGame extends javax.swing.JFrame {
         });
         panel.add(diceComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
-        luckyButton.setFont(new java.awt.Font("WebLetterer Pro BB", 0, 8)); // NOI18N
-        luckyButton.setText("I'm Feeling Lucky");
-        luckyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                luckyButtonActionPerformed(evt);
-            }
-        });
-        panel.add(luckyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 140, 20));
-
         percentCorrectGuessesLabel.setFont(new java.awt.Font("WebLetterer Pro BB", 0, 18)); // NOI18N
         percentCorrectGuessesLabel.setText("Percentage of Correct Guesses:");
         panel.add(percentCorrectGuessesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, 20));
@@ -171,20 +166,13 @@ public class diceGame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_diceComboBoxActionPerformed
 
-    private void luckyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_luckyButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_luckyButtonActionPerformed
-
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         
         //Variables
+        DecimalFormat x = new DecimalFormat("#,###,###.00");
+        
         int guess;
         int diceRoll = 0;
-        int numberRolls = 0;
-        int correctGuesses = 0;
-        int incorrectGuesses = 0;
-        int percCorrectGuesses = 0;
-        
         
         
         String comboBox = (String)diceComboBox.getSelectedItem();
@@ -212,24 +200,28 @@ public class diceGame extends javax.swing.JFrame {
         guess = Integer.parseInt(guessInput.getText());
         
         if (guess == diceRoll) {
-            numberRolls = numberRolls + 1;
             correctGuesses = correctGuesses + 1;
-            percCorrectGuesses = (correctGuesses/numberRolls)*100;
+            numberRolls = numberRolls + 1;
             
             rollNumberLabel.setText("" + numberRolls);
             numberCorrectGuessLabel.setText("" + correctGuesses);
-            numberPercentCorrectGuessLabel.setText("" + percCorrectGuesses);
+            
             
         }
         else if (guess != diceRoll) {
-            numberRolls = numberRolls + 1;
             incorrectGuesses = incorrectGuesses + 1;
-            percCorrectGuesses = (correctGuesses/numberRolls)*100;
+            numberRolls = numberRolls + 1;
             
             rollNumberLabel.setText("" + numberRolls);
             numberIncorrectGuessLabel.setText("" + incorrectGuesses);
-            numberPercentCorrectGuessLabel.setText("" + percCorrectGuesses);
         }
+        
+        percCorrectGuesses = ((double)correctGuesses/(double)numberRolls)*100;
+        numberPercentCorrectGuessLabel.setText("" + x.format(percCorrectGuesses) + "%");
+        System.out.println(percCorrectGuesses);
+       
+        
+        
         
         
     }//GEN-LAST:event_rollButtonActionPerformed
@@ -285,7 +277,6 @@ public class diceGame extends javax.swing.JFrame {
     private javax.swing.JLabel instructionsLabel2;
     private javax.swing.JLabel instructionsLabel3;
     private javax.swing.JLabel instructionsLabel4;
-    private javax.swing.JButton luckyButton;
     private javax.swing.JLabel numberCorrectGuessLabel;
     private javax.swing.JLabel numberIncorrectGuessLabel;
     private javax.swing.JLabel numberPercentCorrectGuessLabel;
